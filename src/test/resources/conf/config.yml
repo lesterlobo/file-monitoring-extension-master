@@ -1,0 +1,84 @@
+# List of files
+pathsToProcess:
+- displayName: "TestPath1"
+  path: "src/test/resources/TestFiles/new*/*.*"
+  ignoreHiddenFiles: true
+  excludeSubdirectoryCount: true #if set to true, this will count only the 'files' under the base directory and exclude subdirectories
+  recursiveFileSizes: false # if set to true, this will provide a file size metric at the configured base directory level and each subdirectory
+  recursiveFileCounts: false # if set to true, this will provide the total count (recursively) of files within the base directory and each subdirectory
+
+metrics:
+    fileSize:
+        alias: "File Size (Bytes)"
+        multiplier:
+        delta:
+        aggregationType:
+        timeRollupType:
+        clusterRollupType:
+    oldestFileAge:
+        alias: "Oldest File Age"
+        multiplier:
+        delta:
+        aggregationType:
+        timeRollupType:
+        clusterRollupType:
+    fileCount:
+        alias: "File Count"
+        multiplier:
+        delta:
+        aggregationType:
+        timeRollupType:
+        clusterRollupType:
+    numberOfLines:
+        alias: "Number of Lines"
+        multiplier:
+        delta:
+        aggregationType:
+        timeRollupType:
+        clusterRollupType:
+    lastModifiedTime:
+        alias: "Last Modified Time"
+        multiplier:
+        delta:
+        aggregationType:
+        timeRollupType:
+        clusterRollupType:
+
+#For the shared directory on windows the path should be like
+# path: "\\\\1.2.3.4\\abc\\def\\ProductI
+
+# Make sure the metric prefix ends with a |
+# This will create it in specific Tier/Component. Make sure to replace <COMPONENT_ID> with the appropriate one from your environment.
+# To find the <COMPONENT_ID> in your environment, please follow the screenshot https://docs.appdynamics.com/display/PRO42/Build+a+Monitoring+Extension+Using+Java
+metricPrefix: "Server|Component:<COMPONENT_ID>|Custom Metrics|FileWatcher|"
+
+numberOfThreads: 20
+
+# The sections [customDashboard] and [controllerInfo] need to be enabled for uploading dashboard to the controller UI
+customDashboard:
+  enabled: false
+  dashboardName: "File Watcher Dashboard"
+  sslCertCheckEnabled: false
+  # Update the path to the dashboard file.
+  pathToSIMDashboard: "monitors/FileWatcher/File+Watcher+Dashboard.json"
+  pathToNormalDashboard:
+  periodicDashboardCheckInSeconds: 300
+
+# If any of the following fields are not set, the values of the specific fields are set from the system properties of the corresponding fields as specified in the comments.
+# If the system properties are not set for the field, then the data is retrieved from machine agent configFile. Please refer to ControllerInfoFactory for more details.
+controllerInfo:
+  controllerHost: "" # -Dappdynamics.controller.hostName
+  controllerPort: 8090 # -Dappdynamics.controller.port
+  controllerSslEnabled: false # -Dappdynamics.controller.ssl.enabled
+  enableOrchestration: false # N/A
+  uniqueHostId: "" # -Dappdynamics.agent.uniqueHostId
+  username: "" # -Dappdynamics.agent.monitors.controller.username
+  password: "" # -Dappdynamics.agent.monitors.controller.password
+  encryptedPassword: "" # -Dappdynamics.agent.monitors.controller.encryptedPassword
+  accountAccessKey: "" # -Dappdynamics.agent.accountAccessKey
+  account: "" # -Dappdynamics.agent.accountName
+  machinePath: "" # -Dappdynamics.machine.agent.hierarchyPath
+  simEnabled: false # -Dappdynamics.sim.enabled
+  applicationName: "" # -Dappdynamics.agent.applicationName
+  tierName: "" # -Dappdynamics.agent.tierName
+  nodeName: "" # -Dappdynamics.agent.nodeName
